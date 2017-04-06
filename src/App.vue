@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <randomize></randomize>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello';
+import Randomize from './components/Randomize';
 
 export default {
   name: 'app',
   components: {
-    Hello,
+    Randomize,
   },
 };
 </script>

@@ -2,18 +2,31 @@
   .randomize
     .wrap
       h1 {{ title }}
-      button Пойдем!
+      button(@click="load") Пойдем!
       p {{ random_text }}
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'randomize',
   data() {
     return {
       title: 'Нажми на кнопку что бы узнать куда пойти сегодня',
       random_text: 'Никуда',
+      resourse_url: 'https://kudago.com/public-api/v1.3/event-categories/?lang=&order_by=&fields=',
     };
+  },
+  methods: {
+    load: () => {
+      // console.log(axios.get(this.resourse_url));
+      axios.get('https://kudago.com/public-api/v1.3/event-categories/?lang=&order_by=&fields=').then((response) => {
+        console.log('Все отлично =>', response);
+      }, (error) => {
+        console.log('Ошибка =>', error);
+      });
+    },
   },
 };
 </script>

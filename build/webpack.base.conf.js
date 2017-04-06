@@ -25,6 +25,17 @@ module.exports = {
       '@': resolve('src')
     }
   },
+  devServer: {
+    proxy: {
+      '/api/*': {
+        target: 'https://kudago.com/public-api',
+        changeOrigin: true,
+        rewrite: function (req) {
+          req.url = req.url.replace(/^\/api/, '');
+        },
+      },
+    },
+  },
   module: {
     rules: [
       {

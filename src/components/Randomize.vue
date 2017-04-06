@@ -15,14 +15,15 @@ export default {
     return {
       title: 'Нажми на кнопку что бы узнать куда пойти сегодня',
       random_text: 'Никуда',
-      resourse_url: 'https://kudago.com/public-api/v1.3/event-categories/?lang=&order_by=&fields=',
     };
   },
   methods: {
-    load: () => {
-      // console.log(axios.get(this.resourse_url));
-      axios.get('https://kudago.com/public-api/v1.3/event-categories/?lang=&order_by=&fields=').then((response) => {
-        console.log('Все отлично =>', response);
+    load: function load() {
+      axios.get('https://kudago.com/public-api/v1.2/events/?expand=event').then((response) => {
+        const events = response.data.results;
+        const random = Math.floor(Math.random() * events.length);
+        this.random_text = events[random].title;
+        console.log('Все отлично =>', events[random].title);
       }, (error) => {
         console.log('Ошибка =>', error);
       });

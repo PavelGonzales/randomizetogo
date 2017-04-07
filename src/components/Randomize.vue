@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     load: function load() {
-      axios.get('http://gonzalez-kudago.betaagency.ru/public-api/v1.2/events/?expand=event').then((response) => {
+      axios.get('https://gonzalez-kudago.betaagency.ru/public-api/v1.2/events/?expand=event').then((response) => {
         const events = response.data.results;
         const random = Math.floor(Math.random() * events.length);
         this.random_text = events[random].title;

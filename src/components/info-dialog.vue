@@ -3,11 +3,10 @@
     .dialog
       .overlay(@click="$emit('close')")
       .inner
-        h1 Название мероприятия
-        h3 {{ time }} и место
-        p {{ description }}
+        h1 {{ title }}
         .map
-          img(v-bind:src="img" alt="#")
+          img(v-bind:src="poster.image" alt="#")
+        p {{ description }}
         button(@click="$emit('close')") close
 </template>
 
@@ -15,8 +14,8 @@
 export default {
   name: 'info-dialog',
   props: [
-    'time',
-    'img',
+    'title',
+    'poster',
     'description',
   ],
 };
@@ -53,7 +52,7 @@ export default {
   box-sizing border-box
 
 .map 
-  width 540px
+  width 340px
   // height 320px
   background-color #efefef
   img

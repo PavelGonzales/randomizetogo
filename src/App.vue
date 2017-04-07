@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div class="nav">
-      <router-link to="/">Go to Foo</router-link>
-      <router-link to="/events">Go to Bar</router-link>
+      <router-link to="/">Главная</router-link>
+      <router-link to="/events">События</router-link>
+      <router-link to="/cinema">Фильмы</router-link>
     </div>
     <router-view></router-view>
   </div>
@@ -11,12 +12,14 @@
 <script>
 import Randomize from './components/Randomize';
 import events from './components/events';
+import cinema from './components/cinema';
 
 export default {
   name: 'app',
   components: {
     Randomize,
     events,
+    cinema,
   },
 };
 </script>

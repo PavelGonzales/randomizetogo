@@ -1,7 +1,7 @@
 <template lang="pug">
   .randomize
     h1 {{ title }}
-    button(@click="load") Пойдем!
+    button(@click="go_event") Пойдем!
     .img
       img(v-bind:src="poster"
           @click="showInfo = true"
@@ -26,22 +26,39 @@ export default {
     return {
       title: 'На какой фильм пойдем сегодня?',
       showInfo: false,
+      events: [],
       event: null,
       poster: null,
+      index: 0,
+      page: 1,
     };
   },
+  created: function created() {
+    console.log('CREATED');
+    this.load(this.page);
+  },
   methods: {
-    load: function load() {
-      axios.get('//gonzalez-kudago.betaagency.ru/public-api/v1.3/movies/?location=msk&fields=title,body_text,poster')
+    load: function load(page) {
+      axios.get(`//gonzalez-kudago.betaagency.ru/public-api/v1.3/movies/?location=msk&fields=id,title,body_text,poster&page=${page}`)
       .then((response) => {
-        const events = response.data.results;
-        const random = Math.floor(Math.random() * events.length);
-        this.poster = events[random].poster.image;
-        this.event = events[random];
-        console.log('Все отлично =>', events);
+        this.events = this.events.concat(response.data.results);
+        console.log('Все отлично =>', response);
       }, (error) => {
         console.log('Ошибка =>', error);
       });
+    },
+    go_event: function goEvent() {
+      if (this.index < this.events.length) {
+        this.poster = this.events[this.index].poster.image;
+        this.event = this.events[this.index];
+        this.index = this.index + 1;
+        console.log(this.events.length);
+        console.log(this.index);
+        if (this.index === this.events.length) {
+          this.page = this.page + 1;
+          this.load(this.page);
+        }
+      }
     },
   },
 };

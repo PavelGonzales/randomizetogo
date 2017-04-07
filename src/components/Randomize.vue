@@ -3,23 +3,31 @@
     .wrap
       h1 {{ title }}
       button(@click="load") Пойдем!
-      p {{ random_text }}
+      h3 {{ random_text }}
+      button(@click="showInfo = true") узнать о конкретном евенте!
+      info-dialog(v-if="showInfo" @close="showInfo = false")
 </template>
 
 <script>
 import axios from 'axios';
+import infoDialog from './info-dialog';
 
 export default {
   name: 'randomize',
+  components: {
+    infoDialog,
+  },
   data() {
     return {
       title: 'Нажми на кнопку что бы узнать куда пойти сегодня',
       random_text: 'Никуда',
+      showInfo: false,
     };
   },
   methods: {
     load: function load() {
-      axios.get('//gonzalez-kudago.betaagency.ru/public-api/v1.2/events/?expand=event').then((response) => {
+      axios.get('//gonzalez-kudago.betaagency.ru/public-api/v1.2/events/?expand=event')
+      .then((response) => {
         const events = response.data.results;
         const random = Math.floor(Math.random() * events.length);
         this.random_text = events[random].title;
@@ -28,9 +36,18 @@ export default {
         console.log('Ошибка =>', error);
       });
     },
+    getEvent: function getEvent() {
+      axios.get('//gonzalez-kudago.betaagency.ru/public-api/v1.3/events/34162/?fields=id,participants,place,location,dates&expand=participants,place,location,dates')
+      .then((response) => {
+        console.log('Все отлично =>', response);
+      }, (error) => {
+        console.log('Ошибка =>', error);
+      });
+    },
   },
 };
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
@@ -46,6 +63,7 @@ export default {
   align-items center
 
 h1
+h3
   font-weight normal
   color #fff
 

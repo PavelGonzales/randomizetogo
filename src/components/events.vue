@@ -1,7 +1,7 @@
 <template lang="pug">
   .randomize
     .wrap
-      h1 {{ title }}
+      h1 TDTYNSSS
       button(@click="load") Пойдем!
       h3 {{ random_text }}
       button(@click="showInfo = true"
@@ -18,7 +18,7 @@ import axios from 'axios';
 import infoDialog from './info-dialog';
 
 export default {
-  name: 'randomize',
+  name: 'events',
   components: {
     infoDialog,
   },

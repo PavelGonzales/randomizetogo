@@ -4,15 +4,21 @@
       .overlay(@click="$emit('close')")
       .inner
         h1 Название мероприятия
-        h3 время и место
-        p Описание мероприятия
-        .map карта
+        h3 {{ time }} и место
+        p {{ description }}
+        .map
+          img(v-bind:src="img" alt="#")
         button(@click="$emit('close')") close
 </template>
 
 <script>
 export default {
   name: 'info-dialog',
+  props: [
+    'time',
+    'img',
+    'description',
+  ],
 };
 </script>
 
@@ -28,6 +34,7 @@ export default {
   display flex 
   justify-content center 
   align-items center
+
 .overlay
   position absolute
   top 0
@@ -40,13 +47,17 @@ export default {
   position relative
   background-color #fff
   border-radius 3px
-  padding 24px
+  padding 25px
   transition transform .4s ease-in-out
+  width 590px
+  box-sizing border-box
 
 .map 
   width 540px
-  height 320px
+  // height 320px
   background-color #efefef
+  img
+    width 100%
 
 button 
   margin-top 15px

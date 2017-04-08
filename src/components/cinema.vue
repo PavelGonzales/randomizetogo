@@ -39,8 +39,9 @@ export default {
   },
   methods: {
     load: function load(page) {
-      axios.get(`//gonzalez-kudago.betaagency.ru/public-api/v1.3/movies/?location=msk&fields=id,title,body_text,poster&page=${page}`)
+      axios.get(`//gonzalez-kudago.betaagency.ru/public-api/v1.3/movies/?location=msk&fields=id,title,body_text,poster&page_size=100&page=${page}`)
       .then((response) => {
+        this.shuffle(response.data.results);
         this.events = this.events.concat(response.data.results);
         console.log('Все отлично =>', response);
       }, (error) => {
@@ -54,11 +55,19 @@ export default {
         this.index = this.index + 1;
         console.log(this.events.length);
         console.log(this.index);
-        if (this.index === this.events.length) {
+        if (this.index === this.events.length - 2) {
           this.page = this.page + 1;
           this.load(this.page);
         }
       }
+    },
+    shuffle: function shuffle(arr) {
+      const a = arr;
+      for (let i = a.length; i; i--) { // eslint-disable-line
+        const j = Math.floor(Math.random() * i);
+        [a[i - 1], a[j]] = [a[j], a[i - 1]];
+      }
+      console.log(a);
     },
   },
 };

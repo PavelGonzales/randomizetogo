@@ -62,12 +62,11 @@ export default {
       }
     },
     shuffle: function shuffle(arr) {
-      const a = arr;
-      for (let i = a.length; i; i--) { // eslint-disable-line
+      const array = arr;
+      for (let i = array.length; i; i--) { // eslint-disable-line
         const j = Math.floor(Math.random() * i);
-        [a[i - 1], a[j]] = [a[j], a[i - 1]];
+        [array[i - 1], array[j]] = [array[j], array[i - 1]];
       }
-      console.log(a);
     },
   },
 };
@@ -82,7 +81,13 @@ export default {
   left 0
   right 0
   bottom 0
-  background-color #009688
+  background-color #BFEE90
+  /* For WebKit (Safari, Chrome, etc) */
+  background #BFEE90 -webkit-gradient(linear, left top, left bottom, from(#90EEA0), to(#BFEE90)) no-repeat
+  /* Mozilla,Firefox/Gecko */
+  background #BFEE90 -moz-linear-gradient(top, #90EEA0, #BFEE90) no-repeat
+
+
   display flex 
   justify-content center 
   align-items center

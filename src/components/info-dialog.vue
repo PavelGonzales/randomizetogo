@@ -2,12 +2,17 @@
   transition(name="fade")
     .dialog
       .overlay(@click="$emit('close')")
-      .inner
-        h1 {{ title }}
-        .map
-          img(v-bind:src="poster.image" alt="#")
-        p {{ description }}
-        button(@click="$emit('close')") close
+      .view
+        .inner
+          h1 {{ title }}
+          .about
+            img(v-bind:src="poster.image" alt="#")
+            .about__content
+              span рейтинг 
+              span где идет
+              span ценовая категория
+          p {{ description }}
+          button(@click="$emit('close')") close
 </template>
 
 <script>
@@ -30,9 +35,6 @@ export default {
   left 0
   right 0
   bottom 0
-  display flex 
-  justify-content center 
-  align-items center
 
 .overlay
   position absolute
@@ -41,6 +43,19 @@ export default {
   right 0
   bottom 0
   background-color rgba(0,0,0,0.7)
+
+.view
+  position absolute
+  top 0
+  left 0
+  right 0
+  bottom 0
+  display flex 
+  justify-content center 
+  align-items flex-start
+  overflow-y scroll
+  padding 75px
+  box-sizing border-box
 
 .inner
   position relative
@@ -51,12 +66,21 @@ export default {
   width 590px
   box-sizing border-box
 
-.map 
-  width 340px
+.about
+  width 100%
   // height 320px
   background-color #efefef
+  text-align left
+  display flex 
+  align-items flex-start
   img
-    width 100%
+    width 50%
+  .about__content
+    width 50%
+    height 100%
+    span 
+      width 100%
+      display inline-block
 
 button 
   margin-top 15px
